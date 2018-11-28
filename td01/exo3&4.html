@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<script>
+var Personne = {
+    nom: "",
+    prenom: "",
+    dateNaissance: [1, 1, 1977],
+    taille : 0,
+    
+    init: function(nom, prenom, dateNaissance, taille){
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.taille = taille;
+    },
+    decrire: function(){ 
+        console.log("Je suis " + this.nom + " " + this.prenom + ", je suis né(e) le " + this.dateNaissance + " et je mesure " + this.taille + " cm"); 
+    },
+    direAge: function(){
+        var now = new Date()
+        today = [now.getDate(), now.getMonth()+1, now.getFullYear()];
+        if(today[1] < this.dateNaissance[1]){
+            age = [today[2]-this.dateNaissance[2]];
+        } else if(today[1] == this.dateNaissance[1] && today[0] < this.dateNaissance[0]){
+            age = [today[2]-this.dateNaissance[2]-1];
+        } else if(today[1] == this.dateNaissance[1] && today[0] == this.dateNaissance[0]){
+            console.log("Joyeux Anniversaire");
+            age = [today[2]-this.dateNaissance[2]];
+        } else if(today[1] == this.dateNaissance[1] && today[0] > this.dateNaissance[0]){
+            age = [today[2]-this.dateNaissance[2]];
+        } else if(today[1] > this.dateNaissance[1]){
+            age = [today[2]-this.dateNaissance[2]];
+        };
+        console.log("J'ai "+ age + "ans")
+    }
+};
+
+var pers = Object.create(Personne);
+pers.nom = "Dupont";
+pers.prenom = "Michel";
+pers.dateNaissance = [12, 5, 1971];
+pers.taille = 185;
+pers.direAge();
+pers.decrire();
+
+var Etudiant = Object.create(Personne); // On cr´ee la r´ef´erence `a l’objet Personne
+Etudiant.numEtudiant = 0;
+Etudiant.initEtudiant = function(nom, prenom, dateNaissance, taille, numEtudiant){
+// On appelle la fonction de l’objet Personne
+this.init(nom, prenom, dateNaissance);
+this.numEtudiant = numEtudiant;
+}
+
+var etu = Object.create(Etudiant);
+etu.initEtudiant("Durand", "Kevin", [26, 7, 1991], 168, 574812);
+
+var Professeur = Object.create(Personne); // On cr´ee la r´ef´erence `a l’objet Personne
+Professeur.emailProf = "";
+Professeur.initProf = function(nom, prenom, dateNaissance, taille, emailProf){
+// On appelle la fonction de l’objet Personne
+    this.init(nom, prenom, dateNaissance);
+    this.emailProf = emailProf;
+}
+
+var prof1 = Object.create(Professeur);
+prof1.initProf("Azerty", "Michel", [15, 10, 1985], 185, "mazerty@prof.com");
+
+var prof2 = Object.create(Professeur);
+prof2.initProf("wxcvbn", "raymond", [15, 10, 1935], 170, "rwxcvbn@prof.com");
+
+/*Exercice 4 : Les attributs ne sont pas definis pour les professeurs créés dans l'exercice 3 
+car nous les attribuons a une personne, on peut rajouter des attributs qui ne seront uniquement accessible 
+pour l'objet créer et non les objets dérivés */
+
+
+</script>
+</html>
+
