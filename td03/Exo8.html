@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    
+</head>
+<body>
+
+<div id="Ladiv">
+  <h2>To do list : </h2>
+  <input type="text" id="Moninput" >
+  <button type="button" onclick="newElement()">Ajouter</button>
+</div>
+
+<ul class="sortable" id="Laliste">
+  <li >ItemDeBase</li>
+</ul>
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+
+$(function() {
+    $(".sortable").sortable({
+        revert: true
+    });
+});
+
+var myNodelist = document.getElementsByTagName("LI");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode(" | X");
+  span.className = "close";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  }
+}
+
+
+
+function newElement() {
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("Moninput").value;
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
+  if (inputValue === '') {
+    alert("You must write something!");
+  } else {
+    document.getElementById("Laliste").appendChild(li);
+  }
+  document.getElementById("Moninput").value = "";
+
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode(" | X");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  var span = document.createElement("SPAN");
+  var txt2 = document.createTextNode(" | M");
+  span.className = "modif";
+  span.appendChild(txt2);
+  li.appendChild(span);
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }
+  for (i = 0; i < modif.length; i++) {
+  modif[i].onclick = function() {
+    var div = this.parentElement;
+    var input = document.getElementById('Moninput');
+    input.value = this.parentElement.textContent.split('|')[0];
+    div.style.display = "none";
+  }
+}
+}
+
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode(" | M");
+  span.className = "modif";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+var modif = document.getElementsByClassName("modif");
+var i;
+
+for (i = 0; i < modif.length; i++) {
+  modif[i].onclick = function() {
+    var div = this.parentElement;
+    var input = document.getElementById('Moninput');
+    input.value = this.parentElement.textContent.split('|')[0];
+    div.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
