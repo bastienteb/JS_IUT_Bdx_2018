@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+
+<div ng-app="app" ng-controller="controlleur" >
+    <ul class="list" ng-repeat="item in parsedData">
+        <li>{{item.ename}}</li>
+    </ul>
+</div>
+<script>
+    var app = angular.module("app", []);
+    app.controller("controlleur", function ($scope, $http) {
+        $http.get("https://raw.githubusercontent.com/fanzeyi/Pokemon-DB/master/pokedex.json").then(function (array) {
+            console.log(array);
+            $scope.parsedData = array.data;
+            console.log($scope.parsedData);
+        });
+    });
+</script>
+</body>
+</html>

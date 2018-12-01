@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<head>
+ 
+        <meta charset="utf-8" />
+ 
+    <title>Kit de Survie JS</title>
+    <meta name="description" content="">
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+
+    <style>
+        #borderBlack{ 
+            border: black solid 2px; 
+            width: 1000px; 
+            height: 500px; 
+        }
+
+        #bgRed{
+            background-color: red;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+    
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+    	$(document).ready(function(){
+            /*$("#bgRed").draggable({
+                containment: "#borderBlack",
+                drag: function( event, ui ) {
+                    
+                    $("#infoPos").empty();
+                    posX = ui.position.left;
+                    posY = ui.position.top;
+                    $("#infoPos").append('X : ' + posX + ' & Y : ' + posY);
+                }
+            })*/
+            $("#sortable").sortable({
+                revert: true
+            });
+
+            $( "ul, li" ).disableSelection();
+
+            $("#order").click(function(){
+                $("#infoPos").empty();
+                for (i=0 ; i< $("#sortable").children("li").length  ; i++){ 
+                        $("#infoPos").append("<li>" + $("ul").children("li")[i].innerHTML + "</li>");
+                    }
+            });
+        });
+
+   	</script>
+</head>
+<body>
+	<!--<div id="borderBlack">
+        <div id="bgRed"></div>
+    </div>-->
+    <ul id="sortable">
+        <li id="1">Item 1</li>
+        <li id="2">Item 2</li>
+        <li id="3">Item 3</li>
+        <li id="4">Item 4</li>
+        <li id="5">Item 5</li>
+    </ul>
+    
+    <input type="button" id="order" value="Ordre ?">
+
+    <div id ="infoPos"></div>
+</body>
+ 
+</html>

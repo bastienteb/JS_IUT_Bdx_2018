@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #ext {
+            height: 500px;
+            width: 500px;
+            border: black 2px solid;
+        }
+
+        #int {
+            height: 15%;
+            width: 15%;
+            background-color: red;
+            padding: 0.1em;
+        }
+
+        body {
+            display: flex;
+        }
+
+        #affichage {
+            padding-left: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="ext">
+    <div class="ui-widget-content" id="int">
+    </div>
+    <ul id="sortable">
+        <li class="ui-state-default">Element 1</li>
+        <li class="ui-state-default">Element 2</li>
+        <li class="ui-state-default">Element 3</li>
+        <li class="ui-state-default">Element 4</li>
+        <li class="ui-state-default">Element 5</li>
+    </ul>
+</div>
+<div class="container" id="affichage">
+    <p><label>Cordonnées de X: </label><label id="x"></label></p>
+    <p><label>Cordonnées de Y: </label><label id="y"></label></p>
+    <button id="btn">Afficher l'ordre de la liste</button>
+    <p id="btn-text"></p>
+</div>
+<div class="container container-increment">
+    <p>Hover to Increment</p>
+</div>
+<script src="jquery-ui-1.12.1"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+
+
+
+    $(function() {
+        (function($){
+            $.fn.incrementSize = function(){
+                var fontSize = parseInt($(this).css("font-size"));
+                fontSize = fontSize + 1 + "px";
+                $(this).css({'font-size':fontSize});
+            };
+        })(jQuery);
+
+        $("#int").draggable({
+            containment: "parent",
+            drag: function() {
+                var $this = $(this);
+                var thisPos = $this.position();
+                var parentPos = $this.parent().position();
+
+                var x = thisPos.left - parentPos.left;
+                var y = thisPos.top - parentPos.top;
+
+                $this.text(x + ", " + y);
+                $('#x').text(x);
+                $('#y').text(y);
+            }
+        });
+        $( "#sortable" ).sortable({
+            revert: true
+        });
+        $( "#sortable" ).draggable({
+            containment: "parent",
+        });
+
+        $('#btn').click(function() {
+            $("#btn-text").html("");
+            for (i=0 ; i< $("#sortable").children("li").length  ; i++){
+                $("#btn-text").append("<li>" + $("ul").children("li")[i].innerHTML + "</li>");
+            }
+        });
+
+        $(".container-increment p").hover(function(){$(this).incrementSize()});
+    })
+</script>
+</body>
+</html>
